@@ -144,13 +144,14 @@ interface IUploadAssetParams {
 
 export interface IUsermanualOptions {
   apiKey: string;
+  baseUrl?: string;
 }
 
 export class UserManual {
   private api;
 
   constructor(options: IUsermanualOptions) {
-    this.api = new Api(options, API_ENDPOINT);
+    this.api = new Api(options, options.baseUrl ? options.baseUrl : API_ENDPOINT);
   }
 
   public async auth(): Promise<IAuthResponse> {
