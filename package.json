@@ -1,0 +1,30 @@
+{
+  "name": "usermanual-api",
+  "version": "1.0.1",
+  "description": "UserManual API Wrapper",
+  "main": "lib/usermanual.js",
+  "types": "lib/usermanual.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node examples/index.ts"
+  },
+  "author": "Bob Singor <hello@usermanual.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/usermanual-com/usermanual-node.git"
+  },
+  "bugs": "https://github.com/usermanual-com/usermanual-node/issues",
+  "homepage": "https://usermanual.com",
+  "engines": {
+    "node": ">=12.*"
+  },
+  "dependencies": {
+    "@types/node": ">=12.0.0",
+    "axios": "^0.27.2"
+  },
+  "devDependencies": {
+    "ts-node": "^10.8.0",
+    "typescript": "^4.5.2"
+  }
+}
