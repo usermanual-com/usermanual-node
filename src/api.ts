@@ -18,8 +18,9 @@ export default class Api {
     }
   }
 
-  public async get<ResponseType, RequestParams = {}>(url: string, _params: RequestParams | {} = {}): Promise<ResponseType> {
+  public async get<ResponseType, RequestParams = {}>(url: string, params: RequestParams | {} = {}): Promise<ResponseType> {
     return axios.get(`${this.baseUrl}${url}`, {
+      params,
       headers: this.headers
     }).then(response => {
       return response.data

@@ -14,6 +14,15 @@ interface IPDFDocumentParams {
   id: string;
 }
 
+interface IPDFDocumentsParams {
+  customField?: string;
+  customFields?: string[];
+  customField2?: string;
+  customFields2?: string[];
+  customField3?: string;
+  customFields3?: string[];
+}
+
 interface IPDFUploadDocumentFileParams {
   uploadCompleted: boolean;
 }
@@ -55,11 +64,19 @@ interface IPDFDocumentTranslation {
   localeId: string;
 }
 
+interface IPDFDocumentMeta {
+  customField?: string;
+  customField2?: string;
+  customField3?: string;
+}
+
 interface ICreatePDFDocumentParams {
   name: string;
   fileName: string;
   type: "Manual" | "Specifications" | "Wiring" | "Other";
+  metadata?: IPDFDocumentMeta;
   translations: IPDFDocumentTranslation[];
+  manualActiveOnProcessed?: boolean;
 }
 
 export interface IAuthResponse {
@@ -138,6 +155,11 @@ export interface IPDFDocumentResponse {
   translations: IPDFDocumentTranslationResponse[];
 }
 
+export interface IPDFDocumentWithSignatureResponse {
+  PDFDocument: IPDFDocumentResponse;
+  signedUploadUrl: string;
+}
+
 interface IUploadAssetParams { 
   uploadCompleted: boolean;
 }
@@ -205,11 +227,18 @@ export class UserManual {
   }
 
   /* PDF Documents */
-  public async createPDFDocument(params: ICreatePDFDocumentParams): Promise<IPDFDocumentResponse> {
+  public async createPDFDocument(params: ICreatePDFDocumentParams): Promise<IPDFDocumentWithSignatureResponse> {
     return this.api.post<
-      IPDFDocumentResponse, 
+      IPDFDocumentWithSignatureResponse, 
       ICreatePDFDocumentParams
     >('/pdf-documents', params);
+  }
+
+  public async getPDFDocuments(params?: IPDFDocumentsParams): Promise<IPDFDocumentResponse> {
+    return this.api.get<
+      IPDFDocumentResponse, 
+      IPDFDocumentsParams
+    >(`/pdf-documents`, params);
   }
 
   public async getPDFDocument(id: string): Promise<IPDFDocumentResponse> {
